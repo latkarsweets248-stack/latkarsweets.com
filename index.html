@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LATKAR SWEETS - Traditional Indian Sweets</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#fffef0;
+    color:#5c4b37;
+    padding-bottom:50px;
+}
+
+.container{
+    position:relative;
+    padding:20px 20px 50px 20px;
+}
+
+.title-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    margin-top:5px;
+    margin-bottom:15px;
+    position:relative;
+}
+
+.title-left{
+    display:flex;
+    flex-direction:column;
+}
+
+.title-line{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.main-title,
+.sweets{
+    font-family:'Montserrat';
+    font-size:2.2rem;
+    font-weight:800;
+    color:#ff0000;
+}
+
+.est{
+    font-size:1rem;
+    font-weight:700;
+    color:#cc0000;
+    letter-spacing:1px;
+    margin-top:2px;
+}
+
+.hamburger{
+    font-size:2rem;
+    cursor:pointer;
+    position:absolute;
+    right:0;
+    top:10px;
+    user-select:none;
+}
+
+.side-menu{
+    position: fixed;
+    top:0;
+    right:-260px;
+    width:250px;
+    height:100%;
+    background:#fff;
+    border-left:3px solid #d4af37;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    transition:0.4s ease;
+    z-index:1000;
+}
+
+.side-menu a{
+    font-size:1.1rem;
+    color:#5c4b37;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.close-btn{
+    font-size:1.6rem;
+    text-align:right;
+    cursor:pointer;
+}
+
+.search-section{
+    margin-top:5px;
+    width:100%;
+}
+
+.search-box{
+    position:relative;
+}
+
+.search-box input{
+    width:100%;
+    padding:15px 50px 15px 20px;
+    border:2px solid #d4af37;
+    border-radius:40px;
+    font-size:1.1rem;
+}
+
+.search-box i{
+    position:absolute;
+    right:20px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:1.3rem;
+    color:#d4af37;
+}
+
+#suggestions{
+    position:absolute;
+    top:55px;
+    left:0;
+    width:100%;
+    background:white;
+    border:1px solid #d4af37;
+    border-radius:10px;
+    display:none;
+    max-height:200px;
+    overflow-y:auto;
+    z-index:999;
+}
+
+#suggestions div{
+    padding:12px 15px;
+    border-bottom:1px solid #f0e6c0;
+    cursor:pointer;
+}
+
+#suggestions div:hover{
+    background:#fff5cc;
+}
+
+.special-title{
+    margin-top:20px;
+    font-size:1.3rem;
+    color:#cc0000;
+    font-weight:600;
+}
+
+/* Slider Styles */
+.slider{
+    margin-top:10px;
+    width:100%;
+    height:230px;
+    border:3px solid #d4af37;
+    border-radius:18px;
+    overflow:hidden;
+    display:flex;
+    scroll-behavior:smooth;
+    cursor:pointer;
+    scroll-snap-type: x mandatory;
+}
+
+.slide{
+    min-width:100%;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:white;
+    text-align:center;
+    transition: transform 0.5s ease;
+    scroll-snap-align: start;
+}
+
+.slide img{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:10px;
+}
+
+.slide-name{
+    font-size:1.5rem;
+    font-family:'Montserrat';
+    color:#b8860b;
+    font-weight:800;
+}
+
+.product-grid{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.product-card{
+    background:white;
+    border:2px solid #d4af37;
+    border-radius:14px;
+    height:120px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:5px;
+    cursor:pointer;
+    text-decoration:none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover{
+    transform: scale(1.05);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.product-card:active{
+    transform: scale(0.95);
+}
+
+.product-card img{
+    width:70px;
+    height:70px;
+    border-radius:10px;
+    margin-bottom:5px;
+    object-fit:cover;
+}
+
+.product-name{
+    font-size:0.85rem;
+    font-weight:600;
+    color:#5c4b37;
+    text-align:center;
+}
+
+/* Contact Section */
+.contact-section{
+    margin-top:50px;
+    background:#fff8e1;
+    border:2px solid #d4af37;
+    border-radius:15px;
+    padding:20px;
+    font-size:1rem;
+    line-height:1.6;
+}
+.contact-section h2{
+    font-family:'Montserrat',sans-serif;
+    color:#cc0000;
+    font-size:1.5rem;
+    margin-bottom:12px;
+}
+.contact-section p{
+    margin-bottom:8px;
+}
+</style>
+</head>
+<body>
+
+<!-- RIGHT SLIDE MENU -->
+<div id="sideMenu" class="side-menu">
+    <div class="close-btn" onclick="toggleMenu()">✖</div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="product.html">Products</a>
+    <a href="contact.html">Contact Us</a>
+</div>
+
+<div class="container">
+
+<div class="title-row">
+    <div class="title-left">
+        <div class="title-line">
+            <div class="main-title">LATKAR</div>
+            <div class="sweets">SWEETS</div>
+        </div>
+        <div class="est">EST. 1920</div>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+</div>
+
+<div class="search-section">
+    <div class="search-box">
+        <input id="searchInput" type="text" placeholder="Search for your favorite mithai..." onkeyup="showSuggestions()">
+        <i>🔍</i>
+        <div id="suggestions"></div>
+    </div>
+</div>
+
+<div class="special-title">Try Our Special</div>
+
+<!-- ⭐ SLIDER SECTION -->
+<div class="slider" id="slider">
+    <div class="slide" onclick="location.href='what is kandi pedha.html'">
+        <img src="images/kandi pedha.jpg" alt="kandi pedha">
+        <div class="slide-name">What is Satari Kandi Pedha?</div>
+    </div>
+    <div class="slide" onclick="location.href='keshari-pedha.html'">
+        <img src="images/keshari pedha.jpg" alt="keshari pedha">
+        <div class="slide-name">Keshari Pedha</div>
+    </div>
+    <div class="slide" onclick="location.href='kalakand.html'">
+        <img src="images/kalakand.jpg" alt="kalakand">
+        <div class="slide-name">Kalakand</div>
+    </div>
+    <div class="slide" onclick="location.href='malai-barfi.html'">
+        <img src="images/malai-barfi.jpg" alt="malai-barfi">
+        <div class="slide-name">Malai Barfi</div>
+    </div>
+</div>
+
+<!-- ⭐ PRODUCT CARDS -->
+<div class="product-grid">
+    <a href="kandi-pedha.html" class="product-card">
+        <img src="images/kandi pedha.jpg" alt="kandi pedha">
+        <div class="product-name">Satari Kandi Pedha</div>
+    </a>
+    <a href="keshari-pedha.html" class="product-card">
+        <img src="images/keshari pedha.jpg" alt="keshari pedha">
+        <div class="product-name">Keshari Pedha</div>
+    </a>
+    <a href="kalakand.html" class="product-card">
+        <img src="images/kalakand.jpg" alt="kalakand">
+        <div class="product-name">Kalakand</div>
+    </a>
+    <a href="malai-barfi.html" class="product-card">
+        <img src="images/malai-barfi.jpg" alt="malai-barfi">
+        <div class="product-name">Malai Barfi</div>
+    </a>
+    <a href="amba-barfi.html" class="product-card">
+        <img src="images/ambabarfi.jpg" alt="amba barfi">
+        <div class="product-name">Amba Barfi</div>
+    </a>
+    <a href="gulab-jamun.html" class="product-card">
+        <img src="images/gulab jamun.jpg" alt="gulab jamun">
+        <div class="product-name">Gulab Jamun</div>
+    </a>
+</div>
+
+<!-- ⭐ CONTACT SECTION -->
+<div class="contact-section">
+    <h2>Contact & Address</h2>
+    <p><strong>LATKAR SWEETS</strong></p>
+    <p>Moti chowk, Satara, Maharashtra, India</p>
+    <p>Phone: +91 98765 xxxxx</p>
+    <p>Email: latkarsweets248.com</p>
+    <p>Website: www.latkarsweets.com</p>
+</div>
+
+</div>
+
+<script>
+const products = [
+    { name: "Satari Kandi Pedha", url: "kandi-pedha.html" },
+    { name: "Keshari Pedha", url: "keshari-pedha.html" },
+    { name: "Kalakand", url: "kalakand.html" },
+    { name: "Malai Barfi", url: "malai-barfi.html" },
+    { name: "Amba Barfi", url: "amba-barfi.html" },
+    { name: "Gulab Jamun", url: "gulab-jamun.html" }
+];
+
+function showSuggestions() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const box = document.getElementById("suggestions");
+    box.innerHTML = "";
+    if (input === "") {
+        box.style.display = "none";
+        return;
+    }
+    const matches = products.filter(p => p.name.toLowerCase().includes(input));
+    if (matches.length === 0) { box.style.display = "none"; return; }
+    matches.forEach(p => {
+        const div = document.createElement("div");
+        div.textContent = p.name;
+        div.onclick = () => { window.location.href = p.url; };
+        box.appendChild(div);
+    });
+    box.style.display = "block";
+}
+
+document.getElementById("searchInput").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        const value = this.value.toLowerCase();
+        const found = products.find(p => p.name.toLowerCase().includes(value));
+        if (found) window.location.href = found.url;
+    }
+});
+
+const items = ["Kandi Pedha","Keshari Pedha","Kalakand","Malai Barfi"];
+let i = 0;
+setInterval(() => {
+    document.getElementById("searchInput").placeholder = "Search: " + items[i];
+    i = (i + 1) % items.length;
+}, 2000);
+
+// ⭐ INFINITE SMOOTH SLIDER
+const slider = document.getElementById("slider");
+let startX = 0;
+
+slider.addEventListener("touchstart", e => { startX = e.touches[0].clientX; });
+slider.addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+    if(endX < startX - 50){ nextSlide(); }
+    else if(endX > startX + 50){ prevSlide(); }
+});
+
+let slideIndex = 0;
+const slides = slider.children;
+const totalSlides = slides.length;
+
+function showSlide(index){
+    slider.scrollTo({left: index * slider.clientWidth, behavior: 'smooth'});
+}
+
+function nextSlide(){
+    slideIndex++;
+    if(slideIndex >= totalSlides) slideIndex = 0;
+    showSlide(slideIndex);
+}
+
+function prevSlide(){
+    slideIndex--;
+    if(slideIndex < 0) slideIndex = totalSlides - 1;
+    showSlide(slideIndex);
+}
+
+// Auto slide every 3 seconds
+setInterval(nextSlide, 3000);
+
+function toggleMenu(){
+    const menu = document.getElementById("sideMenu");
+    menu.style.right = (menu.style.right === "0px") ? "-260px" : "0px";
+}
+</script>
+
+</body>
+</html>
